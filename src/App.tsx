@@ -12,10 +12,6 @@ export function App() {
     winner: null,
   })
 
-  function handleClickCell(row: number, column: number) {
-    console.log(`You clicked on row ${row} and column ${column}`)
-  }
-
   async function handleNewGame() {
     const response = await fetch(
       'https://sdg-tic-tac-toe-api.herokuapp.com/game',
@@ -30,10 +26,26 @@ export function App() {
     }
   }
 
+  async function handleClickCell(row: number, column: number) {
+    const url = `https://sdg-tic-tac-toe-api.herokuapp.com/game/${game.id}`
+    const body = { row: row, column: column }
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    if (response.ok) {
+      const newGame = await response.json()
+      setGame(newGame)
+    }
+  }
+
+  const header = game.winner ? `${game.winner} is the winner!` : 'React Tac Toe'
+
   return (
     <div>
       <h1>
-        React-Tac-Toe: <button onClick={handleNewGame}>New</button>
+        {header} <button onClick={handleNewGame}>New Game</button>
       </h1>
       <ul>
         <li onClick={() => handleClickCell(0, 0)}>{game.board[0][0]}</li>
