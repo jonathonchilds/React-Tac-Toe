@@ -16,10 +16,24 @@ export function App() {
     console.log(`You clicked on row ${row} and column ${column}`)
   }
 
+  async function handleNewGame() {
+    const response = await fetch(
+      'https://sdg-tic-tac-toe-api.herokuapp.com/game',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+      }
+    )
+    if (response.ok) {
+      const newGame = await response.json()
+      setGame(newGame)
+    }
+  }
+
   return (
     <div>
       <h1>
-        React-Tac-Toe: <button>New</button>
+        React-Tac-Toe: <button onClick={handleNewGame}>New</button>
       </h1>
       <ul>
         <li onClick={() => handleClickCell(0, 0)}>{game.board[0][0]}</li>
