@@ -30,7 +30,6 @@ export function App() {
     if (game.id === null || game.winner || game.board[row][cell] !== ' ') {
       return
     }
-
     const url = `https://sdg-tic-tac-toe-api.herokuapp.com/game/${game.id}`
     const body = { row: row, cell: cell }
     const response = await fetch(url, {
@@ -57,7 +56,7 @@ export function App() {
             return (
               <li
                 key={columnIndex}
-                className={cell === ' ' ? '' : 'taken'}
+                className={cell === ' ' ? undefined : 'taken'}
                 onClick={() => handleClickCell(rowIndex, columnIndex)}
               >
                 {cell}
