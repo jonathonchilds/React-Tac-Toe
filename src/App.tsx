@@ -26,9 +26,13 @@ export function App() {
     }
   }
 
-  async function handleClickCell(row: number, column: number) {
+  async function handleClickCell(row: number, cell: number) {
+    if (game.id === null || game.winner || game.board[row][cell] !== ' ') {
+      return
+    }
+
     const url = `https://sdg-tic-tac-toe-api.herokuapp.com/game/${game.id}`
-    const body = { row: row, column: column }
+    const body = { row: row, cell: cell }
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -48,11 +52,12 @@ export function App() {
         {header} <button onClick={handleNewGame}>New Game</button>
       </h1>
       <ul>
-        {game.board.map((boardRow, rowIndex) => {
-          return boardRow.map((cell, columnIndex) => {
+        {game.board.map((row, rowIndex) => {
+          return row.map((cell, columnIndex) => {
             return (
               <li
                 key={columnIndex}
+                className={cell === ' ' ? '' : 'taken'}
                 onClick={() => handleClickCell(rowIndex, columnIndex)}
               >
                 {cell}

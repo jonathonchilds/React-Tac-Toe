@@ -61,7 +61,7 @@ ul li {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 1s font-size ease-in-out;
+  transition: 2s font-size ease-in-out;
 }
 
 ul li.taken {
