@@ -12,6 +12,7 @@
     "deploy": "netlify deploy --prod --dir=dist"
   },
   "dependencies": {
+    "axios": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
